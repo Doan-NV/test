@@ -5,7 +5,6 @@ class CommentControllers {
     const params = req.params;
     const postId = params.postId;
     let response = null;
-    console.log(postId);
     try {
       // check current user
       //   if (!currentUser) {
@@ -18,7 +17,6 @@ class CommentControllers {
         };
       } else {
         response = await commentsService.getCommentofPost(postId);
-        console.log(response);
       }
 
       res.json({ response: response });

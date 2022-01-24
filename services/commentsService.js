@@ -15,14 +15,12 @@ async function addComment(postId, data) {
         response.status = 'error';
         response.message = 'post not found';
     }
-    console.log('chay vao day')
     const newComment = new CommentShema();
     newComment.postId = new ObjectId(postId);
     newComment.content = data.content ? data.content : " ";
     // newComment.createdBy = new ObjectId(data.userId);
     newComment.createdBy = new ObjectId(postId);
     newComment.parentCommentId = data.parentCommentId ? new ObjectId(data.parentCommentId) : null;
-    console.log(newComment);
     const savedInfo = await newComment.save();
     if(savedInfo!=null){
         response.code = 200,
