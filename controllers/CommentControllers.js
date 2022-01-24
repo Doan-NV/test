@@ -8,7 +8,11 @@ class CommentControllers {
     try {
       // check current user
       //   if (!currentUser) {
-      //     return responseData(403, "error", "Error");
+      //    response = {
+      //    status: 400,
+      //     message: "user is not allower",
+      //    };
+      //    res.json(response);
       //   }
       if (!ObjectId.isValid(postId)) {
         response = {
@@ -18,10 +22,9 @@ class CommentControllers {
       } else {
         response = await commentsService.getCommentofPost(postId);
       }
-
       res.json({ response: response });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.json({ error: error });
     }
   }
@@ -34,10 +37,14 @@ class CommentControllers {
       // const currentUser = await getUser(req);
       // check current user
       //   if (!currentUser) {
-      //     return responseData(403, "error", "Error");
+      //    response = {
+      //    status: 400,
+      //     message: "user is not allower",
+      //    };
+      //    res.json(response);
       //   }
       // const userId = currentUser._id
-    //   data.createdBy = userId;
+      //   data.createdBy = userId;
       if (!ObjectId.isValid(postId)) {
         response = {
           status: 400,
@@ -46,7 +53,6 @@ class CommentControllers {
       } else {
         response = await commentsService.addComment(postId, data); // + userId
       }
-
       res.json(response);
     } catch (error) {
       res.json({ error: error });

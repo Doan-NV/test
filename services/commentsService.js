@@ -17,7 +17,13 @@ async function addComment(postId, data) {
     }
     const newComment = new CommentShema();
     newComment.postId = new ObjectId(postId);
-    newComment.content = data.content ? data.content : " ";
+    if(data.content && data.content !== ""){
+        newComment.content = data.content;
+    }else{
+        response.code = 400;
+        response.status = 'error';
+        response.message = 'commet empty';
+    }
     // newComment.createdBy = new ObjectId(data.userId);
     newComment.createdBy = new ObjectId(postId);
     newComment.parentCommentId = data.parentCommentId ? new ObjectId(data.parentCommentId) : null;
@@ -31,15 +37,15 @@ async function addComment(postId, data) {
         response.code = 400,
         response.status = 'error';
         response.message = 'some error';
-        // response.data = savedInfo;
     }
+
     return response;
 }
 
 async function getCommentofPost(postId) {
     const response = {};
     const comment = await CommentShema.find({
-        // isDeleted: false,
+        isDeleted: false,
         postId: new ObjectId(postId)
     })
     .populate({
